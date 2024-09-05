@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="About">
+    <label>Enter your name
+        <input type="text">
+    </label>
+        <button>Get greeting</button>
+</Layout>
+
+<style>
+    body {
+        color: white;
+    }
+    button {
+        margin-top: 20px;
+    }
+</style>
+
+<script>
+import { actions } from 'astro:actions';
+
+const button = document.querySelector('button');
+button?.addEventListener('click', async () => {
+    const input = document.querySelector('input');
+    if (input?.value) {
+        const { data, error } = await actions.getGreeting({ name: input.value });
+        if (!error) alert(data);
+    }
+})
+</script>
